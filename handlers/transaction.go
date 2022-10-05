@@ -117,7 +117,7 @@ func (h *handlerTransaction) CreateTransaction(w http.ResponseWriter, r *http.Re
 		ID:     miliTime,
 		UserID: id,
 		Total:  request.Total,
-		Status: "pending",
+		Status: "success",
 		Cart:   cart,
 	}
 
