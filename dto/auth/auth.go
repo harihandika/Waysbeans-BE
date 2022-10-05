@@ -9,6 +9,7 @@ type RegisterRequest struct {
 type LoginRequest struct {
 	Email    string `json:"email" gorm:"type: varchar(255)" validate:"required"`
 	Password string `json:"password" gorm:"type: varchar(255)" validate:"required"`
+	Address  string `json:"address" gorm:"typer:varchar(255)"`
 }
 
 type LoginResponse struct {
