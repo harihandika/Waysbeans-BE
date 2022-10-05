@@ -21,24 +21,24 @@ type handlersAuth struct {
 	AuthRepository repositories.AuthRepository
 }
 
-func HandlerAuth(AuthRepository repositories.AuthRepository) *handlersAuth{
+func HandlerAuth(AuthRepository repositories.AuthRepository) *handlersAuth {
 	return &handlersAuth{AuthRepository}
 }
 
 func (h *handlersAuth) Register(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type","application/json")
+	w.Header().Set("Content-Type", "application/json")
 
 	request := new(authdto.RegisterRequest)
-	if err := json.NewDecoder(r.Body).Decode(&request);err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		response := dto.ErrorResult{Code: http.StatusBadRequest,Message: err.Error()}
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
 		json.NewEncoder(w).Encode(response)
 		return
 	}
 
 	validate := validator.New()
 	err := validate.Struct(request)
-	if err != nil{
+	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
 		json.NewEncoder(w).Encode(response)
@@ -53,15 +53,15 @@ func (h *handlersAuth) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user := models.User {
-		Name: request.Name,
-		Email: request.Email,
+	user := models.User{
+		Name:     request.Name,
+		Email:    request.Email,
 		Password: password,
-		Status: "customer",
+		Status:   "customer",
 	}
 
 	data, err := h.AuthRepository.Register(user)
-	if err != nil{
+	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
 		json.NewEncoder(w).Encode(response)
@@ -69,7 +69,7 @@ func (h *handlersAuth) Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	profile := models.Profile{
-		ID: data.ID,
+		ID:     data.ID,
 		UserID: data.ID,
 	}
 
@@ -119,10 +119,11 @@ func (h *handlersAuth) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	loginResponse := authdto.LoginResponse{
-		Name:   user.Name,
-		Email:  user.Email,
-		Token:  token,
-		Status: user.Status,
+		Name:    user.Name,
+		Email:   user.Email,
+		Address: user.Address,
+		Token:   token,
+		Status:  user.Status,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
