@@ -15,7 +15,7 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 		file, _, err := r.FormFile("image")
 
 		if err != nil && r.Method == "PATCH" {
-			ctx := context.WithValue(r.Context(), "dataFile","false")
+			ctx := context.WithValue(r.Context(), "dataFile", "false")
 			next.ServeHTTP(w, r.WithContext(ctx))
 			return
 		}
@@ -28,11 +28,11 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 
 		defer file.Close()
 
-		buff := make([]byte,512)
+		buff := make([]byte, 512)
 		_, err = file.Read(buff)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			response := dto.ErrorResult{Code: http.StatusInternalServerError,Message: err.Error()}
+			response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
 			json.NewEncoder(w).Encode(response)
 			return
 		}
@@ -40,15 +40,15 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 		filetype := http.DetectContentType(buff)
 		if filetype != "image/jpeg" && filetype != "image/png" {
 			w.WriteHeader(http.StatusBadRequest)
-			response := dto.ErrorResult{Code: http.StatusBadRequest,Message: err.Error()}
+			response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
 			json.NewEncoder(w).Encode(response)
 			return
 		}
 
-		_,err = file.Seek(0, io.SeekStart)
+		_, err = file.Seek(0, io.SeekStart)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			response := dto.ErrorResult{Code: http.StatusInternalServerError,Message: err.Error()}
+			response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
 			json.NewEncoder(w).Encode(response)
 			return
 		}
