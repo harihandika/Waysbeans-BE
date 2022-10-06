@@ -18,7 +18,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// var path_file_product = "http://localhost:5000/uploads/"
+var path_file_product = "http://localhost:5000/uploads/"
 
 type handlersProduct struct {
 	ProductRepository repositories.ProductRepository
