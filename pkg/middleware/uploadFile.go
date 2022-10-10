@@ -22,7 +22,7 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 
 		if err != nil {
 			fmt.Println(err)
-			json.NewEncoder(w).Encode("Error Retriving the File....")
+			json.NewEncoder(w).Encode("Error Retriving the File")
 			return
 		}
 
