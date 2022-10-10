@@ -101,7 +101,7 @@ func (h *handlersProduct) CreateProduct(w http.ResponseWriter, r *http.Request) 
 	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 
 	// Upload file to Cloudinary ...
-	resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "waybeans"})
+	resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "dumbmerch"})
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -143,7 +143,7 @@ func (h *handlersProduct) UpdateProduct(w http.ResponseWriter, r *http.Request) 
 	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 
 	// Upload file to Cloudinary ...
-	resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "waybeans"}) // add this code
+	resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "dumbmerch"}) // add this code
 	if err != nil {
 		fmt.Println(err.Error())
 	}
