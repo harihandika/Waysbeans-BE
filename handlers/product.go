@@ -110,8 +110,7 @@ func (h *handlersProduct) CreateProduct(w http.ResponseWriter, r *http.Request) 
 	product := models.Product{
 		Title: request.Title,
 		Price: request.Price,
-		Image: "https://res.cloudinary.com/dz7xutxhp/image/upload/v1664937613/waybeans/vvkq9v7lyrznnq09nktl.png",
-		Im:    resp.SecureURL,
+		Image: resp.SecureURL,
 		Stock: request.Stock,
 		Desc:  request.Desc,
 	}
@@ -155,8 +154,7 @@ func (h *handlersProduct) UpdateProduct(w http.ResponseWriter, r *http.Request) 
 	request := productsdto.UpdateProduct{
 		Title: r.FormValue("title"),
 		Price: price,
-		Image: "https://res.cloudinary.com/dz7xutxhp/image/upload/v1664935755/waybeans/v2synzeudgahx2a68jtw.png",
-		Im:    resp.SecureURL,
+		Image: resp.SecureURL,
 		Stock: stock,
 		Desc:  r.FormValue("desc"),
 	}
