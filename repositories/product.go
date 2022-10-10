@@ -18,14 +18,14 @@ func RepositoryProduct(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindProducts() ([]models.Product,error){
+func (r *repository) FindProducts() ([]models.Product, error) {
 	var products []models.Product
 	err := r.db.Find(&products).Error
 
 	return products, err
 }
 
-func (r *repository) GetProduct(ID int) (models.Product,error){
+func (r *repository) GetProduct(ID int) (models.Product, error) {
 	var product models.Product
 	err := r.db.First(&product, ID).Error
 
